@@ -1,0 +1,155 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+}
+
+.contForm{
+    width: 35%;
+}
+
+#contChessClean{
+    width: 65%;
+}
+
+.question{
+    background-color:#0a0a0a;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.question h1{
+    font-size: 22px;
+    text-align: center;
+    margin-top: 20px
+}
+
+.question .text{
+    margin: 10px 10px 0;
+}
+
+.question form{
+    margin: 5px 10px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.question form  div{
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.question form label{
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.question input{
+    font-size: 18px;
+    width: 50px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    outline: none;
+    padding: 2px 5px;
+}
+
+.question input:hover, .question input:focus{
+    border-bottom: 2px solid #872657;
+}
+
+.question button{
+    background-color: #872657;
+    border: 2px solid #872657;
+    align-self: center;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 10px;
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.question button:hover{
+    border: 2px solid #872657;
+    background-color: transparent;
+    color: #872657;
+}
+
+.question #clean{
+    background-color:darkgreen;
+    border: 2px solid darkgreen;
+}
+
+.question #clean:hover{
+    border: 2px solid darkgreen;
+    background-color: transparent;
+    color: darkgreen;
+}
+
+.question #clean{
+    display: none;
+}
+
+#advice{
+    text-align: center;
+    height: 18px;
+    color: #d11919;
+}
+
+#chess{
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid #000;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+#chess > div{
+    position: relative;
+    text-align: center;
+    color: #6c4675;
+    cursor: pointer;
+}
+
+#chess > div p{
+    display: none;
+    position:absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 50%;
+    background-color: rgba(142, 158, 168, 0.6);
+    font-size: 5px;
+    /* pointer-events: none; */
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+
+input[type=number] { -moz-appearance:textfield; }
