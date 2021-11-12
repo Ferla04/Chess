@@ -166,6 +166,7 @@ function verifyMoviePiece(rows,columns,typePiece, CHESS, arrSelector,i, j){
             break;
         case 'B': bishopMovement(rows,columns,CHESS, arrSelector, i, j);
             break; 
+        case 'Q': queenMovement(rows,columns,CHESS, arrSelector,i, j);
         default:
             break;
     }
@@ -175,9 +176,7 @@ function verifyMoviePiece(rows,columns,typePiece, CHESS, arrSelector,i, j){
 
 // function verifyMoviePiece(rows,columns,typePiece, CHESS, arrSelector,i, j){
 
-//     // i = rows
-//     // j = colums
-//     calculate(rows,columns,CHESS, arrSelector, i, j);
-
+   
 
 // }
+

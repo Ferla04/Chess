@@ -1,5 +1,4 @@
 function bishopMovement(rows,columns,CHESS, arrSelector, i, j){
-    debugger
 
     let colorP = CHESS[i][j][0];
     let jNegtv = j-1;
