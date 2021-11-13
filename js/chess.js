@@ -46,6 +46,8 @@ function clean(){
     //configuración
     CHESS = [];
     color = 'W';
+    deadPieceWhite =[];
+    deadPieceBlack =[];
     CHESS_HTML.remove();
     colsInput.removeAttribute('readonly',true);
     rowsInput.removeAttribute('readonly',true);
@@ -122,8 +124,7 @@ function createGraphicChess(CHESS,CHESS_HTML,columns,rows){
                     changeColor(arraySquare,i,j);
                     cleanBackgroundColor(rows,columns,arrSelector);
                     
-                }else if(other && CHESS[i][j].split(" ").join("").length == 0){
-                    if(arrSelector[i][j].style.display == 'block'){
+                }else if(other && arrSelector[i][j].style.display == 'block'){
                         status1 = true;
                         other = false;
                         replacePiece(CHESS,place[0],place[1],i,j);
@@ -131,7 +132,6 @@ function createGraphicChess(CHESS,CHESS_HTML,columns,rows){
                         cleanBackgroundColor(rows,columns,arrSelector);
                         place.splice(0,2);
                         console.log(CHESS);
-                    }
                 }
             })
     

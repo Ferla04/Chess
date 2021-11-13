@@ -1,5 +1,5 @@
 function kingMovement(rows,columns, CHESS, arrSelector,i, j){
-    debugger
+
     let colorP = CHESS[i][j][0];
     
     for(let index = i-1; index <= i+1; index++){

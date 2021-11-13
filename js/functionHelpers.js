@@ -77,11 +77,16 @@ function replacePiece(CHESS,pos1, pos2, pi, pj){
     let thePiece = document.getElementById(`r${pos1}c${pos2}`);
     let theSelect = document.getElementById(`r${pi}c${pj}`);
 
+    if(CHESS[pi][pj][0] == 'W') deadPieceWhite.push(`${CHESS[pi][pj][2]},${pi},${pj}`);
+    if(CHESS[pi][pj][0] == 'B') deadPieceBlack.push(`${CHESS[pi][pj][2]},${pi},${pj}`);
+
     CHESS[pi][pj] = CHESS[pos1][pos2];
     CHESS[pos1][pos2] = '   ';
     thePiece.innerHTML = changeToFigures(CHESS[pos1][pos2]);
     theSelect.innerHTML  = changeToFigures(CHESS[pi][pj]);
 
+    console.log(deadPieceWhite);
+    console.log(deadPieceBlack);
 }
 
 

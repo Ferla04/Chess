@@ -26,4 +26,7 @@ let color = 'W';
 //Colores selecionados
 const COLOR_SELECT = 'rgb(232, 179, 1)';
 const COLOR_MOVE = 'rgb(142, 158, 168)';
+//comidos
+let deadPieceWhite =[];
+let deadPieceBlack =[];
 
