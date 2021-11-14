@@ -106,7 +106,7 @@ function createGraphicChess(CHESS,CHESS_HTML,columns,rows){
             //-----------------  SELECCIONAR PIEZA - MOVER  -----------------------------------
             arraySquare[i][j].addEventListener('click', function(){
                 if(status1 && CHESS[i][j].split(" ").join("").length > 0){
-                    resultado = colorPieceCycle(CHESS[i][j][0]); //Turno pieza;
+                    resultado = verifyColorPieceCycle(CHESS[i][j][0]); //Turno pieza;
                     if(resultado){
                         console.log(`selected piece R${i} C${j}`);
                         verifyMoviePiece(rows,columns,CHESS[i][j][2],CHESS, arrSelector,i, j);
@@ -117,7 +117,6 @@ function createGraphicChess(CHESS,CHESS_HTML,columns,rows){
                     }
                 }else if(arraySquare[i][j].style.backgroundColor == COLOR_SELECT){
                     console.log(`deselected piece R${i} C${j}`)
-                    color == 'W'? color = 'B': color = 'W'; //Turno pieza;
                     status1 = true;
                     other = false;
                     place.splice(0,2);
@@ -125,13 +124,14 @@ function createGraphicChess(CHESS,CHESS_HTML,columns,rows){
                     cleanBackgroundColor(rows,columns,arrSelector);
                     
                 }else if(other && arrSelector[i][j].style.display == 'block'){
-                        status1 = true;
-                        other = false;
-                        replacePiece(CHESS,place[0],place[1],i,j);
-                        changeColor(arraySquare,place[0],place[1]);
-                        cleanBackgroundColor(rows,columns,arrSelector);
-                        place.splice(0,2);
-                        console.log(CHESS);
+                    status1 = true;
+                    other = false;
+                    changeColorPieceCycle();
+                    replacePiece(CHESS,place[0],place[1],i,j);
+                    changeColor(arraySquare,place[0],place[1]);
+                    cleanBackgroundColor(rows,columns,arrSelector);
+                    place.splice(0,2);
+                    console.log(CHESS);
                 }
             })
     
@@ -150,7 +150,6 @@ function createGraphicChess(CHESS,CHESS_HTML,columns,rows){
         }
     }
 }
-
 
 
 function verifyMoviePiece(rows,columns,typePiece, CHESS, arrSelector,i, j){

@@ -116,6 +116,24 @@ body{
     color: #d11919;
 }
 
+.turnos{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 30px;
+    text-align: center;
+    width: 250px;
+    height: 70px;
+    line-height: 65px;
+    border-radius: 10px;
+    background-color: #ac8b90af;
+    color: #0a0a0a;
+}
+
+.turnos span{
+    font-weight: 900;
+}
+
 #chess{
     display: flex;
     flex-wrap: wrap;

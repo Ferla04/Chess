@@ -110,12 +110,16 @@ function cleanBackgroundColor(rows,columns,array){
 }
 
 
-function colorPieceCycle(CHESS){//Turno color
+function verifyColorPieceCycle(CHESS){//Turno color
     if(CHESS == color){
-        color == 'W'? color = 'B': color = 'W';
         return true;
     }else{
-        CHESS == 'W'? console.log('Turno pieza Negra'):console.log('Turno pieza Blanca')
+        CHESS == 'W'? console.log('Turno pieza Negra'):console.log('Turno pieza Blanca');
         return false;
     }
+}
+
+function changeColorPieceCycle(){
+    color == 'W'? color = 'B': color = 'W';
+    color == 'W'? colorHtml.innerHTML = 'Blancas': colorHtml.innerHTML = 'Negras';
 }

@@ -22,6 +22,7 @@ let rows;
 let buttonMake = document.getElementById('make');
 let buttonClean = document.getElementById('clean');
 //Turno de la ficha
+let colorHtml = document.getElementById('turno');
 let color = 'W';
 //Colores selecionados
 const COLOR_SELECT = 'rgb(232, 179, 1)';
