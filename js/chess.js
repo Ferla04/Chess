@@ -46,13 +46,17 @@ function clean(){
     //configuración
     CHESS = [];
     color = 'W';
-    deadPieceWhite =[];
-    deadPieceBlack =[];
+    colorHtml.innerHTML = 'Blancas';
+    deadWhitePieces =[];
+    deadBlackPieces =[];
     CHESS_HTML.remove();
     colsInput.removeAttribute('readonly',true);
     rowsInput.removeAttribute('readonly',true);
     buttonMake.style.display = 'block';
     buttonClean.style.display = 'none';
+    //contenedores de piezas comidas
+    whitePiecesHtml.innerHTML = '';
+    blackPiecesHtml.innerHTML = '';
 }
 
 

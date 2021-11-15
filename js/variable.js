@@ -28,6 +28,8 @@ let color = 'W';
 const COLOR_SELECT = 'rgb(232, 179, 1)';
 const COLOR_MOVE = 'rgb(142, 158, 168)';
 //comidos
-let deadPieceWhite =[];
-let deadPieceBlack =[];
+let whitePiecesHtml = document.getElementById('whitePieces');
+let blackPiecesHtml = document.getElementById('blackPieces');
+let deadWhitePieces =[];
+let deadBlackPieces =[];
 

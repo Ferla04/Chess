@@ -62,10 +62,12 @@ function createPiecesHTML(arraySquare,arrSelector,i,j,square,sizeSquare){
     //selector: la bolita que muestra el movimiento
     let selectorPiece = document.createElement('p');
     selectorPiece.className = 'seltPiece';
-    selectorPiece.style.width = `${sizeSquare - 28}px`;
-    selectorPiece.style.height = `${sizeSquare - 28}px`;
-    // selectorPiece.style.minWidth = `${sizeSquare - 10}px`;
-    // selectorPiece.style.minHeight = `${sizeSquare - 10}px`;
+    selectorPiece.style.width = `${sizeSquare -15}%`;
+    selectorPiece.style.height = `${sizeSquare -15}%`;
+    if(sizeSquare < 30){
+        selectorPiece.style.minWidth = `${sizeSquare - 10}px`;
+        selectorPiece.style.minHeight = `${sizeSquare - 10}px`;
+    }
     // console.log(selectorPiece.style.width);
     DIV_COLS.appendChild(selectorPiece);
     arrSelector[i].push(selectorPiece);
@@ -77,18 +79,67 @@ function replacePiece(CHESS,pos1, pos2, pi, pj){
     let thePiece = document.getElementById(`r${pos1}c${pos2}`);
     let theSelect = document.getElementById(`r${pi}c${pj}`);
 
-    if(CHESS[pi][pj][0] == 'W') deadPieceWhite.push(`${CHESS[pi][pj][2]},${pi},${pj}`);
-    if(CHESS[pi][pj][0] == 'B') deadPieceBlack.push(`${CHESS[pi][pj][2]},${pi},${pj}`);
+    // if(CHESS[pi][pj][0] == 'W') deadWhitePieces.push(`${CHESS[pi][pj][2]},${pi},${pj}`);
+    // if(CHESS[pi][pj][0] == 'B') deadBlackPieces.push(`${CHESS[pi][pj][2]},${pi},${pj}`);
+    if(CHESS[pi][pj][0] == 'W') deadWhitePieces.push(`${CHESS[pi][pj][2]}`);
+    if(CHESS[pi][pj][0] == 'B') deadBlackPieces.push(`${CHESS[pi][pj][2]}`);
 
     CHESS[pi][pj] = CHESS[pos1][pos2];
     CHESS[pos1][pos2] = '   ';
     thePiece.innerHTML = changeToFigures(CHESS[pos1][pos2]);
     theSelect.innerHTML  = changeToFigures(CHESS[pi][pj]);
 
-    console.log(deadPieceWhite);
-    console.log(deadPieceBlack);
+    console.log(deadWhitePieces);
+    console.log(deadBlackPieces);
+    eatenPieces();
 }
 
+function eatenPieces(){
+    // debugger
+    whitePiecesHtml.innerHTML = '';
+    blackPiecesHtml.innerHTML = '';
+
+    let countDeadWhite = [
+        {name: 'P', count: 0, piece: '♙'},
+        {name: 'T', count: 0, piece: '♖'},
+        {name: 'H', count: 0, piece: '♘'},
+        {name: 'B', count: 0, piece: '♗'},
+        {name: 'Q', count: 0, piece: '♕'},
+        {name: 'K', count: 0, piece: '♔'}
+    ];
+
+    let countDeadBlack = [
+        {name: 'P', count: 0, piece: '♟'},
+        {name: 'T', count: 0, piece: '♜'},
+        {name: 'H', count: 0, piece: '♞'},
+        {name: 'B', count: 0, piece: '♝'},
+        {name: 'Q', count: 0, piece: '♛'},
+        {name: 'K', count: 0, piece: '♚'}
+    ];
+
+    showDeadPieces(deadWhitePieces,countDeadWhite,whitePiecesHtml);
+    showDeadPieces(deadBlackPieces,countDeadBlack,blackPiecesHtml);
+}
+
+function showDeadPieces(arrDeadPieces,countDead,piecesHTML){
+    arrDeadPieces.forEach(e =>{
+        countDead.forEach(elem =>{
+            if(e == elem.name){
+                elem.count += 1;
+            }
+        });
+    });
+
+    countDead.forEach(e => {
+        if(e.count > 0){
+            if(e.name == 'Q' || e.name == 'K'){
+                piecesHTML.innerHTML += `${e.piece}  `
+            }else{
+                piecesHTML.innerHTML += `${e.count}${e.piece}  `;
+            }
+        }
+    })
+}
 
 
 //---------------------- COLORES ----------------------

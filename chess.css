@@ -130,6 +130,16 @@ body{
     color: #0a0a0a;
 }
 
+.contForm section{
+    margin: 20px auto;
+    width: 320px;
+    font-size: 30px;
+    font-variant: small-caps;
+    height: 42px;
+    color: #6c4675;
+    pointer-events: none;
+}
+
 .turnos span{
     font-weight: 900;
 }
