@@ -84,8 +84,8 @@ function replacePiece(CHESS,pos1, pos2, pi, pj){
     if(CHESS[pi][pj][0] == 'W') deadWhitePieces.push(`${CHESS[pi][pj][2]}`);
     if(CHESS[pi][pj][0] == 'B') deadBlackPieces.push(`${CHESS[pi][pj][2]}`);
 
-    if(CHESS[pos1][pos2][0] == 'W' && CHESS[pos1][pos2][2] == 'P' && pi == 0) revivePieceModal(modalWhite,'W',deadWhitePieces);
-    if(CHESS[pos1][pos2][0] == 'B' && CHESS[pos1][pos2][2] == 'P' && pi == rows-1) revivePieceModal(modalBlack,'B', deadBlackPieces);
+    if(CHESS[pos1][pos2][0] == 'W' && CHESS[pos1][pos2][2] == 'P' && pi == 0) revivePieceModal(modalWhite);
+    if(CHESS[pos1][pos2][0] == 'B' && CHESS[pos1][pos2][2] == 'P' && pi == rows-1) revivePieceModal(modalBlack);
 
     CHESS[pi][pj] = CHESS[pos1][pos2];
     CHESS[pos1][pos2] = '   ';
@@ -94,24 +94,11 @@ function replacePiece(CHESS,pos1, pos2, pi, pj){
 
     // console.log(deadWhitePieces);
     // console.log(deadBlackPieces);
-    eatenPieces();
-}
-
-let otherPiece = [];
-
-function revivePieceModal(modalColor){
-    if(modalColor.innerHTML != ''){
-        CONT_MODAL.style.display = 'flex';
-        modalColor.style.display = 'flex';
-    }
-}
-
-function hola(arrDeadPieces){
-    console.log(arrDeadPieces);
+    eatenPieces(pi,pj);
 }
 
 
-function eatenPieces(){
+function eatenPieces(pi,pj){
     // debugger
     whitePiecesHtml.innerHTML = '';
     blackPiecesHtml.innerHTML = '';
@@ -136,11 +123,11 @@ function eatenPieces(){
         {name: 'K', count: 0, piece: '♚'}
     ];
 
-    showDeadPieces(deadWhitePieces,countDeadWhite,whitePiecesHtml,modalWhite,'W');
-    showDeadPieces(deadBlackPieces,countDeadBlack,blackPiecesHtml,modalBlack,'B');
+    showDeadPieces(deadWhitePieces,countDeadWhite,whitePiecesHtml,modalWhite,'W',pi,pj);
+    showDeadPieces(deadBlackPieces,countDeadBlack,blackPiecesHtml,modalBlack,'B',pi,pj);
 }
 
-function showDeadPieces(arrDeadPieces,countDead,piecesHTML,modalPiece,colorPiece){
+function showDeadPieces(arrDeadPieces,countDead,piecesHTML,modalPiece,colorPiece,pi,pj){
     arrDeadPieces.forEach(e =>{
         countDead.forEach(elem =>{
             if(e == elem.name){
@@ -161,9 +148,8 @@ function showDeadPieces(arrDeadPieces,countDead,piecesHTML,modalPiece,colorPiece
             //colocar piezas en la modal
             if(e.name != 'P'){
                 let pDead = document.createElement('p');
-                pDead.id = `${e.name}${colorPiece}`;
                 pDead.className = `pDead${colorPiece}`;
-                pDead.setAttribute('onclick', `hola('${colorPiece}')`);
+                pDead.setAttribute('onclick', `replaceDeadPiece('${colorPiece}${e.name}','${e.piece}',${pi}, ${pj})`);
                 e.name == 'Q' || e.count == 1? pDead.innerHTML = e.piece : pDead.innerHTML = `${e.count}${e.piece}`;
                 modalPiece.appendChild(pDead);
             }
@@ -171,6 +157,38 @@ function showDeadPieces(arrDeadPieces,countDead,piecesHTML,modalPiece,colorPiece
     })
 }
 
+//---------------------- MODAL ----------------------
+
+function revivePieceModal(modalColor){
+    if(modalColor.innerHTML != ''){
+        CONT_MODAL.style.display = 'flex';
+        modalColor.style.display = 'flex';
+    }
+}
+
+function replaceDeadPiece(colorPiece,piece,pi,pj){
+
+    let pieceChange = document.getElementById(`r${pi}c${pj}`);
+    CHESS[pi][pj] = `${colorPiece[0]}-${colorPiece[1]}`;
+    pieceChange.innerHTML = piece;
+
+    if(colorPiece[0] == 'W'){
+        renewArrPiecesDead(deadWhitePieces,colorPiece,modalWhite);
+
+    }else if(colorPiece[0] == 'B'){
+        renewArrPiecesDead(deadBlackPieces,colorPiece,modalBlack);
+    }
+
+    console.log(CHESS);
+    eatenPieces(pi,pj);
+}
+
+function renewArrPiecesDead(arrDeadPieces,colorPiece,modalColor){
+    arrDeadPieces.splice(arrDeadPieces.indexOf(colorPiece[1]),1);
+    arrDeadPieces.push('P');
+    modalColor.style.display = 'none';
+    CONT_MODAL.style.display = 'none';
+}
 
 //---------------------- COLORES ----------------------
 function changeColor(array,pos1, pos2){
