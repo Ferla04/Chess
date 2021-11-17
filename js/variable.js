@@ -32,4 +32,7 @@ let whitePiecesHtml = document.getElementById('whitePieces');
 let blackPiecesHtml = document.getElementById('blackPieces');
 let deadWhitePieces =[];
 let deadBlackPieces =[];
-
+//modal
+const CONT_MODAL = document.getElementById('contModal');
+let modalWhite = document.getElementById('modalWhite');
+let modalBlack = document.getElementById('modalBlack');

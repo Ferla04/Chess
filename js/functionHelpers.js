@@ -74,30 +74,49 @@ function createPiecesHTML(arraySquare,arrSelector,i,j,square,sizeSquare){
 }
 
 
+//---------------------- PIEZAS COMIDAS ----------------------
+
 function replacePiece(CHESS,pos1, pos2, pi, pj){
 
     let thePiece = document.getElementById(`r${pos1}c${pos2}`);
     let theSelect = document.getElementById(`r${pi}c${pj}`);
 
-    // if(CHESS[pi][pj][0] == 'W') deadWhitePieces.push(`${CHESS[pi][pj][2]},${pi},${pj}`);
-    // if(CHESS[pi][pj][0] == 'B') deadBlackPieces.push(`${CHESS[pi][pj][2]},${pi},${pj}`);
     if(CHESS[pi][pj][0] == 'W') deadWhitePieces.push(`${CHESS[pi][pj][2]}`);
     if(CHESS[pi][pj][0] == 'B') deadBlackPieces.push(`${CHESS[pi][pj][2]}`);
+
+    if(CHESS[pos1][pos2][0] == 'W' && CHESS[pos1][pos2][2] == 'P' && pi == 0) revivePieceModal(modalWhite,'W',deadWhitePieces);
+    if(CHESS[pos1][pos2][0] == 'B' && CHESS[pos1][pos2][2] == 'P' && pi == rows-1) revivePieceModal(modalBlack,'B', deadBlackPieces);
 
     CHESS[pi][pj] = CHESS[pos1][pos2];
     CHESS[pos1][pos2] = '   ';
     thePiece.innerHTML = changeToFigures(CHESS[pos1][pos2]);
     theSelect.innerHTML  = changeToFigures(CHESS[pi][pj]);
 
-    console.log(deadWhitePieces);
-    console.log(deadBlackPieces);
+    // console.log(deadWhitePieces);
+    // console.log(deadBlackPieces);
     eatenPieces();
 }
+
+let otherPiece = [];
+
+function revivePieceModal(modalColor){
+    if(modalColor.innerHTML != ''){
+        CONT_MODAL.style.display = 'flex';
+        modalColor.style.display = 'flex';
+    }
+}
+
+function hola(arrDeadPieces){
+    console.log(arrDeadPieces);
+}
+
 
 function eatenPieces(){
     // debugger
     whitePiecesHtml.innerHTML = '';
     blackPiecesHtml.innerHTML = '';
+    modalWhite.innerHTML = '';
+    modalBlack.innerHTML = '';
 
     let countDeadWhite = [
         {name: 'P', count: 0, piece: '♙'},
@@ -117,11 +136,11 @@ function eatenPieces(){
         {name: 'K', count: 0, piece: '♚'}
     ];
 
-    showDeadPieces(deadWhitePieces,countDeadWhite,whitePiecesHtml);
-    showDeadPieces(deadBlackPieces,countDeadBlack,blackPiecesHtml);
+    showDeadPieces(deadWhitePieces,countDeadWhite,whitePiecesHtml,modalWhite,'W');
+    showDeadPieces(deadBlackPieces,countDeadBlack,blackPiecesHtml,modalBlack,'B');
 }
 
-function showDeadPieces(arrDeadPieces,countDead,piecesHTML){
+function showDeadPieces(arrDeadPieces,countDead,piecesHTML,modalPiece,colorPiece){
     arrDeadPieces.forEach(e =>{
         countDead.forEach(elem =>{
             if(e == elem.name){
@@ -131,11 +150,22 @@ function showDeadPieces(arrDeadPieces,countDead,piecesHTML){
     });
 
     countDead.forEach(e => {
-        if(e.count > 0){
-            if(e.name == 'Q' || e.name == 'K'){
-                piecesHTML.innerHTML += `${e.piece}  `
+        if(e.count > 0 && e.name != 'K'){
+            if(e.name == 'Q' || e.count == 1){
+                piecesHTML.innerHTML += `${e.piece}  `;
             }else{
                 piecesHTML.innerHTML += `${e.count}${e.piece}  `;
+                
+            }
+
+            //colocar piezas en la modal
+            if(e.name != 'P'){
+                let pDead = document.createElement('p');
+                pDead.id = `${e.name}${colorPiece}`;
+                pDead.className = `pDead${colorPiece}`;
+                pDead.setAttribute('onclick', `hola('${colorPiece}')`);
+                e.name == 'Q' || e.count == 1? pDead.innerHTML = e.piece : pDead.innerHTML = `${e.count}${e.piece}`;
+                modalPiece.appendChild(pDead);
             }
         }
     })
